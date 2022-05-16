@@ -30,7 +30,7 @@ struct Home: View {
                         .aspectRatio(1.0, contentMode: .fit)
                         .frame(width: 170, height: 170)
                         .rotationEffect(Angle(degrees: 25))
-                    Image("LogInImage")
+                    Image("HomeImage")
                         .resizable()
                         .aspectRatio(1.0, contentMode: .fit)
                         .frame(width: 200, height: 200)

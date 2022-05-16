@@ -12,7 +12,7 @@ struct LogInView: View {
     @State var password: String = ""
     var body: some View {
         VStack {
-            Image("SignUpImage")
+            Image("LogInImage")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             VStack(alignment: .leading) {

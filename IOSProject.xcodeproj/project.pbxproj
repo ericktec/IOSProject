@@ -17,6 +17,7 @@
 		892E91B32831F6F700CE8B91 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892E91B22831F6F700CE8B91 /* LogInView.swift */; };
 		892E91B52831FFC900CE8B91 /* PrimaryNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892E91B42831FFC900CE8B91 /* PrimaryNavigationLink.swift */; };
 		892E91B7283202F900CE8B91 /* SecondaryNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892E91B6283202F900CE8B91 /* SecondaryNavigationLink.swift */; };
+		8940422628330621004E3FD0 /* RadioButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8940422528330621004E3FD0 /* RadioButtons.swift */; };
 		898ACA4F281F1B27006FB7AC /* IOSProjectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898ACA4E281F1B27006FB7AC /* IOSProjectApp.swift */; };
 		898ACA51281F1B27006FB7AC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898ACA50281F1B27006FB7AC /* ContentView.swift */; };
 		898ACA53281F1B33006FB7AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 898ACA52281F1B33006FB7AC /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 		892E91B22831F6F700CE8B91 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		892E91B42831FFC900CE8B91 /* PrimaryNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryNavigationLink.swift; sourceTree = "<group>"; };
 		892E91B6283202F900CE8B91 /* SecondaryNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryNavigationLink.swift; sourceTree = "<group>"; };
+		8940422528330621004E3FD0 /* RadioButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtons.swift; sourceTree = "<group>"; };
 		898ACA4B281F1B27006FB7AC /* IOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		898ACA4E281F1B27006FB7AC /* IOSProjectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSProjectApp.swift; sourceTree = "<group>"; };
 		898ACA50281F1B27006FB7AC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 		892E91A82831DD6D00CE8B91 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				8940422528330621004E3FD0 /* RadioButtons.swift */,
 				892E91A62831DCAF00CE8B91 /* SecondaryButton.swift */,
 				892E91A42831DB7800CE8B91 /* PrimaryButton.swift */,
 			);
@@ -223,6 +226,7 @@
 				892E91AE2831F18E00CE8B91 /* AuthenticationFirebaseDatasource.swift in Sources */,
 				898ACA4F281F1B27006FB7AC /* IOSProjectApp.swift in Sources */,
 				892E91B12831F59500CE8B91 /* SignUpView.swift in Sources */,
+				8940422628330621004E3FD0 /* RadioButtons.swift in Sources */,
 				892E91B7283202F900CE8B91 /* SecondaryNavigationLink.swift in Sources */,
 				892E91AC2831F18600CE8B91 /* AuthenticationRepository.swift in Sources */,
 			);
