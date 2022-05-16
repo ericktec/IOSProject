@@ -8,44 +8,36 @@
 import SwiftUI
 
 struct LogInView: View {
-    @Environment(\.colorScheme) var colorScheme
+    @State var email: String = ""
+    @State var password: String = ""
     var body: some View {
         VStack {
-            Text("Welcomel to")
-                .foregroundColor(.primary)
-                .font(.body)
-            Text("SabrosApp")
-                .foregroundColor(.primary)
-                .font(.title)
-                .bold()
-            ZStack {
-                Rectangle()
-                    .fill(Color("SecondaryBlue"))
-                    .aspectRatio(1.0, contentMode: .fit)
-                    .frame(width: 170, height: 170)
-                    .rotationEffect(Angle(degrees: 35))
-                Rectangle()
-                    .fill(Color(red: 52/255, green: 49/255, blue: 69/255))
-                    .aspectRatio(1.0, contentMode: .fit)
-                    .frame(width: 170, height: 170)
-                    .rotationEffect(Angle(degrees: 25))
-                Image("LogInImage")
-                    .resizable()
-                    .aspectRatio(1.0, contentMode: .fit)
-                    .frame(width: 200, height: 200)
-            }.padding(.top, 30)
-            Spacer()
-            VStack(spacing: 40) {
-                PrimaryButton(label: "Log in") {
-                    
-                }
-                SecondaryButton(label: "Sign Up") {
-                    
+            Image("SignUpImage")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            VStack(alignment: .leading) {
+                Text("Email")
+                TextField("", text: $email)
+                    Divider()
+                Text("Password")
+                TextField("", text: $password)
+                Divider()
+            }
+            .padding()
+            
+            PrimaryButton(label: "Log in", onClick: {})
+            HStack {
+                Text("Don't have an account?")
+                NavigationLink(destination: SignUpView()){
+                    Text("Sign up")
+                        .foregroundColor(Color("PrimaryOrange"))
+                        .underline()
                 }
                 
-            }.padding()
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(.bottom, 10)
         .background(Color("PrimaryColorBackground"))
     }
 }
@@ -53,11 +45,8 @@ struct LogInView: View {
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LogInView()
-                .preferredColorScheme(.dark)
-            
-            LogInView()
-                .preferredColorScheme(.light)
+            LogInView().preferredColorScheme(.dark)
+            LogInView().preferredColorScheme(.light)
         }
         
     }

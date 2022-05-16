@@ -20,9 +20,17 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct IOSProjectApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var authenticationViewModel = AuthenticationViewModel()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if authenticationViewModel.user != nil{
+            ContentView(authenticationViewModel: authenticationViewModel)
+            }
+            else {
+                Home()
+            
+            }
         }
     }
 }
