@@ -39,6 +39,7 @@ struct SignUpView: View {
                         Text("Repeat Password")
                         TextField("", text: $comfirmPassword)
                         Divider()
+                            .background(password != "" && (password != comfirmPassword) ? Color.red : .primary)
                     }
 
                     Group {
@@ -66,8 +67,8 @@ struct SignUpView: View {
                 PrimaryButton(label: "Sign up", onClick: {})
                 HStack {
                     Text("I already have an account.")
-                    NavigationLink(destination: SignUpView()){
-                        Text("Sign up")
+                    NavigationLink(destination: LogInView()){
+                        Text("Log in")
                             .foregroundColor(Color("PrimaryOrange"))
                             .underline()
                     }

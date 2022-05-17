@@ -18,6 +18,7 @@
 		892E91B52831FFC900CE8B91 /* PrimaryNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892E91B42831FFC900CE8B91 /* PrimaryNavigationLink.swift */; };
 		892E91B7283202F900CE8B91 /* SecondaryNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892E91B6283202F900CE8B91 /* SecondaryNavigationLink.swift */; };
 		8940422628330621004E3FD0 /* RadioButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8940422528330621004E3FD0 /* RadioButtons.swift */; };
+		894042282833484B004E3FD0 /* TimerExcercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894042272833484B004E3FD0 /* TimerExcercise.swift */; };
 		898ACA4F281F1B27006FB7AC /* IOSProjectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898ACA4E281F1B27006FB7AC /* IOSProjectApp.swift */; };
 		898ACA51281F1B27006FB7AC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898ACA50281F1B27006FB7AC /* ContentView.swift */; };
 		898ACA53281F1B33006FB7AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 898ACA52281F1B33006FB7AC /* Assets.xcassets */; };
@@ -44,6 +45,7 @@
 		892E91B42831FFC900CE8B91 /* PrimaryNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryNavigationLink.swift; sourceTree = "<group>"; };
 		892E91B6283202F900CE8B91 /* SecondaryNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryNavigationLink.swift; sourceTree = "<group>"; };
 		8940422528330621004E3FD0 /* RadioButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtons.swift; sourceTree = "<group>"; };
+		894042272833484B004E3FD0 /* TimerExcercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerExcercise.swift; sourceTree = "<group>"; };
 		898ACA4B281F1B27006FB7AC /* IOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		898ACA4E281F1B27006FB7AC /* IOSProjectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSProjectApp.swift; sourceTree = "<group>"; };
 		898ACA50281F1B27006FB7AC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			children = (
 				892E91A82831DD6D00CE8B91 /* Buttons */,
 				898ACA4E281F1B27006FB7AC /* IOSProjectApp.swift */,
+				894042272833484B004E3FD0 /* TimerExcercise.swift */,
 				892E91A02831CE8100CE8B91 /* HomeView.swift */,
 				892E91B6283202F900CE8B91 /* SecondaryNavigationLink.swift */,
 				892E91B42831FFC900CE8B91 /* PrimaryNavigationLink.swift */,
@@ -225,6 +228,7 @@
 				892E91A52831DB7800CE8B91 /* PrimaryButton.swift in Sources */,
 				892E91AE2831F18E00CE8B91 /* AuthenticationFirebaseDatasource.swift in Sources */,
 				898ACA4F281F1B27006FB7AC /* IOSProjectApp.swift in Sources */,
+				894042282833484B004E3FD0 /* TimerExcercise.swift in Sources */,
 				892E91B12831F59500CE8B91 /* SignUpView.swift in Sources */,
 				8940422628330621004E3FD0 /* RadioButtons.swift in Sources */,
 				892E91B7283202F900CE8B91 /* SecondaryNavigationLink.swift in Sources */,
