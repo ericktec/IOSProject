@@ -19,6 +19,7 @@ struct SignUpView: View {
     @State var firstName = ""
     @State var lastName = ""
     @State var genre: String = Genre.Male.rawValue
+    @ObservedObject var authenticationViewModel: AuthenticationViewModel
     var body: some View {
         ScrollView {
             VStack {
@@ -33,11 +34,11 @@ struct SignUpView: View {
                         Divider()
                         
                         Text("Password")
-                        TextField("", text: $password)
+                        SecureField("", text: $password)
                         Divider()
                         
                         Text("Repeat Password")
-                        TextField("", text: $comfirmPassword)
+                        SecureField("", text: $comfirmPassword)
                         Divider()
                             .background(password != "" && (password != comfirmPassword) ? Color.red : .primary)
                     }
@@ -61,19 +62,26 @@ struct SignUpView: View {
                             RadioButtons(value: $genre, id: Genre.Female.rawValue, label: "Female")
                         }
                     }
+                    
+                    Group {
+                        PrimaryButton(label: "Sign up", fullWidth: true) {
+                            guard email != "" && password == password && password != "" else {
+                                return
+                            }
+                            authenticationViewModel.createNewUser(email: email, password: password, firstName: firstName, lastName: lastName, genre: genre)
+                        }
+                        HStack {
+                            Text("I already have an account.")
+                            NavigationLink(destination: LogInView(authenticationViewModel:authenticationViewModel)){
+                                Text("Log in")
+                                    .foregroundColor(Color("PrimaryOrange"))
+                                    .underline()
+                            }
+                            
+                        }
+                    }
                 }
                 .padding()
-                
-                PrimaryButton(label: "Sign up", onClick: {})
-                HStack {
-                    Text("I already have an account.")
-                    NavigationLink(destination: LogInView()){
-                        Text("Log in")
-                            .foregroundColor(Color("PrimaryOrange"))
-                            .underline()
-                    }
-                    
-                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -86,10 +94,10 @@ struct SignUpView: View {
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            SignUpView()
+            SignUpView(authenticationViewModel: AuthenticationViewModel())
                 .preferredColorScheme(.dark)
             
-            SignUpView()
+            SignUpView(authenticationViewModel: AuthenticationViewModel())
                 .preferredColorScheme(.light)
         }
         

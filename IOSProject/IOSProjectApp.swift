@@ -28,8 +28,7 @@ struct IOSProjectApp: App {
             ContentView(authenticationViewModel: authenticationViewModel)
             }
             else {
-                Home()
-            
+                Home(authenticationViewModel: authenticationViewModel)
             }
         }
     }

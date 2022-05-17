@@ -16,8 +16,8 @@ final class AuthenticationViewModel: ObservableObject {
         self.authenticationRepository = authenticationRepository
     }
     
-    func createNewUser(email: String, password: String) {
-        authenticationRepository.createNewUser(email: email, password: password) { [weak self] result in
+    func createNewUser(email: String, password: String, firstName: String, lastName: String, genre: String) {
+        authenticationRepository.createNewUser(email: email, password: password, firstName: firstName, lastName: lastName, genre: genre) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let newUser):

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Home: View {
+    @ObservedObject var authenticationViewModel: AuthenticationViewModel
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
         NavigationView {
@@ -37,8 +38,8 @@ struct Home: View {
                 }.padding(.top, 30)
                 Spacer()
                 VStack(spacing: 40) {
-                   PrimaryNavigationLink(destination: LogInView(), label: "Log in")
-                    SecondaryNavigationLink(destination: SignUpView(), label: "Sign up")
+                    PrimaryNavigationLink(destination: LogInView(authenticationViewModel: authenticationViewModel), label: "Log in", fullWidth: true)
+                    SecondaryNavigationLink(destination: SignUpView(authenticationViewModel: authenticationViewModel), label: "Sign up", fullWidth: true)
                     
                 }.padding()
             }
@@ -52,10 +53,10 @@ struct Home: View {
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            Home()
+            Home(authenticationViewModel: AuthenticationViewModel())
                 .preferredColorScheme(.dark)
             
-            Home()
+            Home(authenticationViewModel: AuthenticationViewModel())
                 .preferredColorScheme(.light)
         }
         
