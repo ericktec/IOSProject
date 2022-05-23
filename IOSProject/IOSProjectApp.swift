@@ -25,10 +25,12 @@ struct IOSProjectApp: App {
     var body: some Scene {
         WindowGroup {
             if authenticationViewModel.user != nil{
-            ContentView(authenticationViewModel: authenticationViewModel)
+            ContentView()
+                    .environmentObject(authenticationViewModel)
             }
             else {
-                Home(authenticationViewModel: authenticationViewModel)
+                Home()
+                    .environmentObject(authenticationViewModel)
             }
         }
     }

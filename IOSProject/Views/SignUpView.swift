@@ -19,7 +19,7 @@ struct SignUpView: View {
     @State var firstName = ""
     @State var lastName = ""
     @State var genre: String = Genre.Male.rawValue
-    @ObservedObject var authenticationViewModel: AuthenticationViewModel
+    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     var body: some View {
         ScrollView {
             VStack {
@@ -72,7 +72,7 @@ struct SignUpView: View {
                         }
                         HStack {
                             Text("I already have an account.")
-                            NavigationLink(destination: LogInView(authenticationViewModel:authenticationViewModel)){
+                            NavigationLink(destination: LogInView()){
                                 Text("Log in")
                                     .foregroundColor(Color("PrimaryOrange"))
                                     .underline()
@@ -94,10 +94,10 @@ struct SignUpView: View {
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            SignUpView(authenticationViewModel: AuthenticationViewModel())
+            SignUpView()
                 .preferredColorScheme(.dark)
             
-            SignUpView(authenticationViewModel: AuthenticationViewModel())
+            SignUpView()
                 .preferredColorScheme(.light)
         }
         

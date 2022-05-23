@@ -20,6 +20,9 @@
 		892E91B32831F6F700CE8B91 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892E91B22831F6F700CE8B91 /* LogInView.swift */; };
 		892E91B52831FFC900CE8B91 /* PrimaryNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892E91B42831FFC900CE8B91 /* PrimaryNavigationLink.swift */; };
 		892E91B7283202F900CE8B91 /* SecondaryNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892E91B6283202F900CE8B91 /* SecondaryNavigationLink.swift */; };
+		8938B0AD283C403D00554712 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8938B0AC283C403D00554712 /* ImageLoader.swift */; };
+		8938B0B1283C42C300554712 /* ImageByURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8938B0B0283C42C300554712 /* ImageByURL.swift */; };
+		893F67FE2836B0130087B299 /* ExerciseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893F67FD2836B0130087B299 /* ExerciseListView.swift */; };
 		8940422628330621004E3FD0 /* RadioButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8940422528330621004E3FD0 /* RadioButtons.swift */; };
 		894042282833484B004E3FD0 /* TimerExcercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894042272833484B004E3FD0 /* TimerExcercise.swift */; };
 		898ACA4F281F1B27006FB7AC /* IOSProjectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898ACA4E281F1B27006FB7AC /* IOSProjectApp.swift */; };
@@ -50,6 +53,9 @@
 		892E91B22831F6F700CE8B91 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		892E91B42831FFC900CE8B91 /* PrimaryNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryNavigationLink.swift; sourceTree = "<group>"; };
 		892E91B6283202F900CE8B91 /* SecondaryNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryNavigationLink.swift; sourceTree = "<group>"; };
+		8938B0AC283C403D00554712 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		8938B0B0283C42C300554712 /* ImageByURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageByURL.swift; sourceTree = "<group>"; };
+		893F67FD2836B0130087B299 /* ExerciseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListView.swift; sourceTree = "<group>"; };
 		8940422528330621004E3FD0 /* RadioButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtons.swift; sourceTree = "<group>"; };
 		894042272833484B004E3FD0 /* TimerExcercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerExcercise.swift; sourceTree = "<group>"; };
 		898ACA4B281F1B27006FB7AC /* IOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +92,8 @@
 				898ACA50281F1B27006FB7AC /* ContentView.swift */,
 				892E91A02831CE8100CE8B91 /* HomeView.swift */,
 				8924F64928342997000C5B51 /* TodayWorkoutView.swift */,
+				893F67FD2836B0130087B299 /* ExerciseListView.swift */,
+				8938B0AC283C403D00554712 /* ImageLoader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -93,6 +101,7 @@
 		8924F64C283429C8000C5B51 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				8938B0B0283C42C300554712 /* ImageByURL.swift */,
 				892E91A82831DD6D00CE8B91 /* Buttons */,
 				894042272833484B004E3FD0 /* TimerExcercise.swift */,
 			);
@@ -256,12 +265,15 @@
 				892E91B52831FFC900CE8B91 /* PrimaryNavigationLink.swift in Sources */,
 				8924F64A28342997000C5B51 /* TodayWorkoutView.swift in Sources */,
 				892E91AA2831F17C00CE8B91 /* AuthenticationViewModel.swift in Sources */,
+				893F67FE2836B0130087B299 /* ExerciseListView.swift in Sources */,
 				892E91A72831DCAF00CE8B91 /* SecondaryButton.swift in Sources */,
 				892E91A12831CE8100CE8B91 /* HomeView.swift in Sources */,
 				8924F65028342D7A000C5B51 /* WorkoutModel.swift in Sources */,
 				898ACA51281F1B27006FB7AC /* ContentView.swift in Sources */,
+				8938B0AD283C403D00554712 /* ImageLoader.swift in Sources */,
 				8924F64E28342C24000C5B51 /* ExerciseModel.swift in Sources */,
 				892E91A52831DB7800CE8B91 /* PrimaryButton.swift in Sources */,
+				8938B0B1283C42C300554712 /* ImageByURL.swift in Sources */,
 				892E91AE2831F18E00CE8B91 /* AuthenticationFirebaseDatasource.swift in Sources */,
 				898ACA4F281F1B27006FB7AC /* IOSProjectApp.swift in Sources */,
 				894042282833484B004E3FD0 /* TimerExcercise.swift in Sources */,

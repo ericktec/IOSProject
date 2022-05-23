@@ -9,8 +9,8 @@ import SwiftUI
 
 struct SecondaryButton: View {
     var label: String
-    var onClick: (()->Void)
     var fullWidth: Bool = false
+    var onClick: (()->Void)
     var body: some View {
         if(fullWidth) {
             Button(label) {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LogInView: View {
-    @ObservedObject var authenticationViewModel: AuthenticationViewModel
+    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     @State var email: String = ""
     @State var password: String = ""
     var body: some View {
@@ -36,7 +36,7 @@ struct LogInView: View {
                 }
                 HStack {
                     Text("Don't have an account?")
-                    NavigationLink(destination: SignUpView( authenticationViewModel: authenticationViewModel)){
+                    NavigationLink(destination: SignUpView()){
                         Text("Sign up")
                             .foregroundColor(Color("PrimaryOrange"))
                             .underline()
@@ -53,9 +53,9 @@ struct LogInView: View {
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LogInView(authenticationViewModel: AuthenticationViewModel()).preferredColorScheme(.dark)
+            LogInView().preferredColorScheme(.dark)
             
-            LogInView(authenticationViewModel: AuthenticationViewModel()).preferredColorScheme(.light)
+            LogInView().preferredColorScheme(.light)
         }
         
     }
