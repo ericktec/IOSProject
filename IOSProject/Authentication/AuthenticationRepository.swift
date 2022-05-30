@@ -23,9 +23,6 @@ final class AuthenticationRepository {
                                                        completionBlock: completionBlock)
     }
     
-    func getCurrentUser() -> User? {
-           authenticationFirebaseDatasource.getCurrentUser()
-       }
     
     func logout() throws {
             try authenticationFirebaseDatasource.logout()

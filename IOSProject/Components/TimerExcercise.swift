@@ -15,11 +15,13 @@ struct TimerExcercise: View {
     private var counter: CGFloat
     @State private var timeRemaining: CGFloat
     @State private var WavePercentage: CGFloat
+    var action: (()->Void)
     
-    init(timeToCount counter: CGFloat) {
+    init(timeToCount counter: CGFloat, action: @escaping (()->Void)) {
         self.timeRemaining = counter
         self.counter = counter
         self.WavePercentage = 1
+        self.action = action
     }
     
     var body: some View {
@@ -29,23 +31,24 @@ struct TimerExcercise: View {
                 .onReceive(timerPublisher) { time in
                     if(self.timeRemaining == 1 ) {
                         timerPublisher.upstream.connect().cancel()
+                        self.action()
                     }
                     timeRemaining -= 1
                     WavePercentage = timeRemaining / counter
                     
                 }
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
                 .font(.system(size: 100, weight: .bold))
                 
         }
         .ignoresSafeArea(.all, edges: .bottom)
-        .frame(width: .infinity, height: .infinity, alignment: .center)
+        .navigationBarHidden(true)
     }
 }
 
 struct TimerExcercise_Previews: PreviewProvider {
     static var previews: some View {
-        TimerExcercise(timeToCount: 60).preferredColorScheme(.dark)
+        TimerExcercise(timeToCount: 10, action: {}).preferredColorScheme(.dark)
     }
 }
 

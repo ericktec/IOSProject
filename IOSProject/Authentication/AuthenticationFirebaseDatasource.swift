@@ -10,10 +10,21 @@ import FirebaseAuth
 import FirebaseFirestore
 
 struct User {
+    let id: String
     let email: String
     let firstName: String
     let lastName: String
     let genre: String
+    var workout: DocumentReference?
+    
+    init(id: String, email: String, firstName: String, lastName: String, genre: String, workout: DocumentReference? = nil) {
+        self.id = id
+        self.email = email
+        self.firstName = firstName
+        self.lastName = lastName
+        self.genre = genre
+        self.workout = workout
+    }
 }
 
 final class AuthenticationFirebaseDatasource {
@@ -32,7 +43,8 @@ final class AuthenticationFirebaseDatasource {
                 completionBlock(.failure("User id is not available" as! Error))
                 return
             }
-            self.db.collection("users").document().setData([
+            let uid = authDataResult!.user.uid
+            self.db.collection("users").document(uid).setData([
                 "firstName": firstName,
                 "lastName":lastName,
                 "genre": genre
@@ -46,32 +58,10 @@ final class AuthenticationFirebaseDatasource {
                     print("Document created successfully")
                 }
             }
-            completionBlock(.success(.init(email: email, firstName: firstName, lastName: lastName, genre: genre)))
+            completionBlock(.success(.init(id: uid,email: email, firstName: firstName, lastName: lastName, genre: genre)))
         }
     }
     
-    func getCurrentUser() -> User? {
-        guard let email = Auth.auth().currentUser?.email else {
-            return nil
-        }
-        guard let userUID = Auth.auth().currentUser?.uid else {
-            return nil
-        }
-        var firstName: String = ""
-        var lastName: String = ""
-        var genre: String = ""
-        db.collection("users").document(userUID).getDocument {(document, error) in
-            if let document = document, document.exists {
-                let dataDescription = document.data()
-                firstName =  dataDescription?["firstName"] as? String ?? ""
-                lastName = dataDescription?["lastName"] as? String ?? ""
-                genre = dataDescription?["genre"] as? String ?? ""
-                
-            }
-            return
-        }
-        return .init(email: email, firstName: firstName, lastName: lastName, genre: genre)
-    }
     
     func logout() throws {
             try Auth.auth().signOut()
@@ -87,21 +77,26 @@ final class AuthenticationFirebaseDatasource {
                 let email = authDataResult?.user.email ?? "No email"
                 print("New user created with info \(email)")
                 guard let userUID = authDataResult?.user.uid else {
-                    return
+                    return completionBlock(.failure("User dont have an id" as! Error))
                 }
-                var firstName: String = ""
-                var lastName: String = ""
-                var genre: String = ""
-                self.db.collection("users").document(userUID).getDocument {(document, error) in
+                
+                let docRef = self.db.collection("users").document(userUID)
+
+                docRef.getDocument { (document, error) in
                     if let document = document, document.exists {
-                        let dataDescription = document.data()
-                        firstName =  dataDescription?["firstName"] as? String ?? ""
-                        lastName = dataDescription?["lastName"] as? String ?? ""
-                        genre = dataDescription?["genre"] as? String ?? ""
+                        let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                        let data = document.data()
+                        print("Document data: \(dataDescription)")
+                        let firstName = data?["firstName"] as? String ?? ""
+                        let lastName = data?["lastName"] as? String ?? ""
+                        let genre = data?["genre"] as? String ?? ""
+                        let documentReference = data?["workout"] as? DocumentReference ?? nil
                         
+                        completionBlock(.success(.init(id: userUID,email: email, firstName: firstName, lastName: lastName, genre: genre, workout: documentReference)))
+                    } else {
+                        completionBlock(.failure("Document not exists" as! Error))
                     }
                 }
-                completionBlock(.success(.init(email: email, firstName: firstName, lastName: lastName, genre: genre)))
             }
         }
     

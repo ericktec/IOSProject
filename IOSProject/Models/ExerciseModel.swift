@@ -15,4 +15,13 @@ struct Exercise: Identifiable, Hashable {
     var reps: Int
     var sets: Int
     var currentSet: Int
+    var dayNumber: Int
+}
+
+
+class CurrentExercise: ObservableObject {
+    var exercise: Exercise
+    init(exercise: Exercise) {
+        self.exercise = exercise
+    }
 }

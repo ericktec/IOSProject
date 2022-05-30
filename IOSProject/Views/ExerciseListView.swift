@@ -9,7 +9,10 @@ import SwiftUI
 
 struct ExerciseListView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    let exercises: [Exercise]
+    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+    @State var exercises: [Exercise]
+    @State var finish: Bool = false
+    @State var currentExercise = 0
     var body: some View {
         ScrollView {
             Text("Exercise list")
@@ -31,13 +34,17 @@ struct ExerciseListView: View {
                                 .font(.system(size: 13))
                         }
                     }
+                    .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color("SecondaryBlue"))
                     .cornerRadius(10)
                 }
                 
                 VStack {
-                    PrimaryNavigationLink(destination: EmptyView(), label: "Start Workout", fullWidth: true)
+                    if(!finish) {
+                        PrimaryNavigationLink(destination: ExerciseView(exercise: $exercises, finish: $finish, currentExercise: $currentExercise), label: "Start Workout", fullWidth: true)
+                    }
+                    
                     
                     SecondaryButton(label: "Return", fullWidth: true) {
                         self.mode.wrappedValue.dismiss()
@@ -54,6 +61,6 @@ struct ExerciseListView: View {
 
 struct ExerciseListView_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseListView(exercises: [Exercise(id: "3", name: "Chest press", imageUrl: "https://i.blogs.es/b86c79/1366_2000-1-/840_560.jpeg", videoUrl: "", reps: 12, sets: 4, currentSet: 0), Exercise(id: "2", name: "Military press", imageUrl:"https://i.blogs.es/b86c79/1366_2000-1-/840_560.jpeg" , videoUrl: "", reps: 10, sets: 4, currentSet: 0)]).preferredColorScheme(.dark)
+        ExerciseListView(exercises: [Exercise(id: "3", name: "Chest press", imageUrl: "https://i.blogs.es/b86c79/1366_2000-1-/840_560.jpeg", videoUrl: "", reps: 12, sets: 4, currentSet: 0, dayNumber: 0), Exercise(id: "2", name: "Military press", imageUrl:"https://i.blogs.es/b86c79/1366_2000-1-/840_560.jpeg" , videoUrl: "", reps: 10, sets: 4, currentSet: 0, dayNumber: 1)]).preferredColorScheme(.dark)
     }
 }
