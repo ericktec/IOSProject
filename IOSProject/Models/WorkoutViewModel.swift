@@ -11,14 +11,16 @@ import SwiftUI
 
 class WorkoutViewModel: ObservableObject {
     private var db = Firestore.firestore()
+    private var exericses = [Exercise]()
     @Published var activeWorkout: Workout? = nil
+    @Published var allWorkouts = [Workout]()
     
     func getCurrentWorkout(workoutReference: DocumentReference) {
         var days = 0
         var name = ""
         var objective = ""
         var type = ""
-        var exericses = [Exercise]()
+        
         var id = ""
         workoutReference.getDocument { (document, error) in
             guard let document = document, document.exists else{
@@ -39,7 +41,7 @@ class WorkoutViewModel: ObservableObject {
                 guard let documents = querySnapshot?.documents else {
                     return
                 }
-                exericses = documents.map{(queryDocumentSnapshot) -> Exercise in
+                self.exericses = documents.map{(queryDocumentSnapshot) -> Exercise in
                     let data = queryDocumentSnapshot.data()
                     let id = queryDocumentSnapshot.documentID
                     let dayNumber = data["dayNumber"] as? Int ?? 0
@@ -50,8 +52,31 @@ class WorkoutViewModel: ObservableObject {
                     let videoUrl = data["videoUrl"] as? String ?? ""
                     return Exercise(id: id, name: name, imageUrl: imageUrl, videoUrl: videoUrl, reps: reps, sets: sets, currentSet: 0, dayNumber: dayNumber)
                 }
-                self.activeWorkout = Workout(id: id, name: name, objective: objective, type: type, days: days, exercises: exericses)
+                self.activeWorkout = Workout(id: id, name: name, objective: objective, type: type, days: days, exercises: self.exericses)
                 print(self.activeWorkout ?? "there is no active workout")
+            }
+        }
+    }
+    
+    func getAllWorkouts(workoutReference: DocumentReference){
+        
+        self.db.collection("workouts").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting docuemnts")
+            }
+            guard let documents = querySnapshot?.documents else {
+                return
+            }
+            
+            self.allWorkouts = documents.map{(queryDocumentSnapshot) -> Workout in
+                let allWorkoutsDoc = queryDocumentSnapshot.data()
+                let days = allWorkoutsDoc["days"] as? Int ?? 0
+                let name = allWorkoutsDoc["name"] as? String ?? ""
+                let objetiveWork = allWorkoutsDoc["objective"] as? String ?? ""
+                let type = allWorkoutsDoc["type"] as? String ?? ""
+                let id = queryDocumentSnapshot.documentID
+                
+                return Workout(id: id, name: name, objective: objetiveWork, type: type, days: days, exercises: self.exericses)
             }
         }
     }
