@@ -16,14 +16,16 @@ struct User {
     let lastName: String
     let genre: String
     var workout: DocumentReference?
+    var currentDay: Int
     
-    init(id: String, email: String, firstName: String, lastName: String, genre: String, workout: DocumentReference? = nil) {
+    init(id: String, email: String, firstName: String, lastName: String, genre: String, workout: DocumentReference? = nil, currentDay: Int = 0) {
         self.id = id
         self.email = email
         self.firstName = firstName
         self.lastName = lastName
         self.genre = genre
         self.workout = workout
+        self.currentDay = currentDay
     }
 }
 
@@ -82,7 +84,7 @@ final class AuthenticationFirebaseDatasource {
                 
                 let docRef = self.db.collection("users").document(userUID)
 
-                docRef.getDocument { (document, error) in
+                docRef.addSnapshotListener { (document, error) in
                     if let document = document, document.exists {
                         let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                         let data = document.data()
@@ -91,8 +93,9 @@ final class AuthenticationFirebaseDatasource {
                         let lastName = data?["lastName"] as? String ?? ""
                         let genre = data?["genre"] as? String ?? ""
                         let documentReference = data?["workout"] as? DocumentReference ?? nil
+                        let currentDay = data?["currentDay"] as? Int ?? 0
                         
-                        completionBlock(.success(.init(id: userUID,email: email, firstName: firstName, lastName: lastName, genre: genre, workout: documentReference)))
+                        completionBlock(.success(.init(id: userUID,email: email, firstName: firstName, lastName: lastName, genre: genre, workout: documentReference, currentDay: currentDay)))
                     } else {
                         completionBlock(.failure("Document not exists" as! Error))
                     }

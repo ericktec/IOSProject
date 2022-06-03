@@ -15,15 +15,15 @@ class WorkoutViewModel: ObservableObject {
     @Published var activeWorkout: Workout? = nil
     @Published var allWorkouts = [Workout]()
     
-    func getCurrentWorkout(workoutReference: DocumentReference) {
+    func getCurrentWorkout(workoutReference: DocumentReference, day: Int) {
         var days = 0
         var name = ""
         var objective = ""
         var type = ""
         var id = ""
         
-        workoutReference.getDocument { (document, error) in
-            guard let document = document, document.exists else{
+        workoutReference.addSnapshotListener { (document, error) in
+            guard let document = document, document.exists else {
                 return
             }
             let dataDescription = document.data()
@@ -33,8 +33,8 @@ class WorkoutViewModel: ObservableObject {
             type = dataDescription?["type"] as? String ?? ""
             id = document.documentID
             
-            workoutReference.collection("exercises").getDocuments() {(querySnapshot, err) in
-                if let err = err {
+            workoutReference.collection("exercises").whereField("dayNumber", isEqualTo: day).getDocuments() {(querySnapshot, err) in
+                if err != nil {
                     print("Error getting documents of exercises")
                     return
                 }
@@ -57,10 +57,10 @@ class WorkoutViewModel: ObservableObject {
         }
     }
     
-    func getAllWorkouts(workoutReference: DocumentReference){
+    func getAllWorkouts(){
         
         self.db.collection("workouts").getDocuments() { (querySnapshot, err) in
-            if let err = err {
+            if err != nil {
                 print("Error getting documents")
             }
             guard let documents = querySnapshot?.documents else {
@@ -82,11 +82,20 @@ class WorkoutViewModel: ObservableObject {
 
     func updateUserActiveWorkout(userReference: String, workoutReference: String) {
         
-        var workoutDocReference = self.db.collection("workouts").document(workoutReference)
+        let workoutDocReference = self.db.collection("workouts").document(workoutReference)
         
-        self.db.collection("users").document(userReference).setData(["workout": workoutDocReference], merge: true)
-        
-        getCurrentWorkout(workoutReference: workoutDocReference)
+        self.db.collection("users").document(userReference).setData(["workout": workoutDocReference, "currentDay": 0], merge: true){ err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+            self.getCurrentWorkout(workoutReference: workoutDocReference, day: 0)
+        }
+    }
+    
+    func updateCurrentDay(userReference: String, day: Int) {
+        self.db.collection("users").document(userReference).setData(["currentDay": day], merge: true)
     }
     
 }

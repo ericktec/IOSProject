@@ -6,68 +6,114 @@
 //
 
 import SwiftUI
-import FirebaseAuth
 
 struct MyWorkoutsView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    @ObservedObject var workoutModel: WorkoutViewModel = WorkoutViewModel()
-    
-    let layout = [
-        GridItem(.adaptive(minimum: UIScreen.main.bounds.width / 4))
-    ]
+    @ObservedObject var workoutViewModel: WorkoutViewModel
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     var body: some View {
+       
+        
         ScrollView {
-            VStack(spacing: 30) {
-                Text("My Workouts")
-                    .bold()
-                    .font(.title)
-                        
-                if workoutModel.allWorkouts.count > 0 {
-                    ForEach(workoutModel.allWorkouts) {workout in
-                        VStack() {
-                            Text(workout.name).bold()
-                            Text("Type \(workout.type)")
-                            Text("Days \(workout.days)")
-                            Text("Objective")
+            if workoutViewModel.allWorkouts.count > 0 {
+                ForEach(workoutViewModel.allWorkouts) { workout in
+                    VStack(alignment: .leading, spacing: 5) {
+                        Group {
+                            HStack {
+                                Text(workout.name)
+                                    .font(.headline)
+                                Spacer()
+                                Button(action: {
+                                    workoutViewModel.updateUserActiveWorkout(userReference: authenticationViewModel.user!.id, workoutReference: workout.id)
+                                    authenticationViewModel.user?.workout = workoutViewModel.db.collection("workouts").document(workout.id)
+                                    self.mode.wrappedValue.dismiss()
+                                    
+                                },
+                                       label: {
+                                    Image(systemName:  "power.circle")
+                                        .foregroundColor(
+                                            (workoutViewModel.activeWorkout != nil) && (workoutViewModel.activeWorkout!.id == workout.id ) ? .green : .primary
+                                        )
+                                })
+                                    .disabled(workoutViewModel.activeWorkout != nil && workoutViewModel.activeWorkout!.id == workout.id )
+                                
+                            }
+                            HStack {
+                                Text("Type")
+                                Text(workout.type)
+                            }
+                            
+                            HStack {
+                                Text("Days")
+                                Text("\(workout.days)")
+                            }
+                            
+                            Text("Objective").bold()
                             Text(workout.objective)
-                            Button(
-                                action: {
-                                    authenticationViewModel.user?.workout = workoutModel.db.collection("workouts").document(workout.id)
-                                    workoutModel.updateUserActiveWorkout(userReference: authenticationViewModel.user!.id, workoutReference: workout.id)
-                                    //repull user data
-                                }
-                            ) { Text("Activate") }
-                            // Button con onClick workout.activeWorkout = workout
                         }
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color("SecondaryBlue"))
-                        .cornerRadius(10)
+                        .padding(.horizontal)
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            Text(
+                                (workoutViewModel.activeWorkout != nil) && (workoutViewModel.activeWorkout!.id == workout.id )
+                                ? "Activated" : "Disabled"
+                            )
+                                .padding(.horizontal, 15)
+                                .padding(.vertical, 10)
+                                .background(
+                                    (workoutViewModel.activeWorkout != nil) && (workoutViewModel.activeWorkout!.id == workout.id ) ?
+                                        Color("PrimaryOrange")
+                                    :
+                                        .clear
+                                )
+                                .cornerRadius(15)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .stroke(Color("PrimaryOrange"))
+                                )
+                                .foregroundColor(.primary)
+                        }
+                        
                     }
+                    .frame(maxWidth: .infinity)
+                    .padding([.top])
+                    .background(Color("SecondaryColorBackground"))
+                    .cornerRadius(10)
                 }
-                else {
+                
+            }
+            else {
+                Group {
                     Text("There arent any workouts yet")
                     Image("NoWorkoutImage")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
+                    SecondaryButton(label: "Return", fullWidth: true) {
+                        self.mode.wrappedValue.dismiss()
+                    }
+                }
+                .onAppear() {
+                    workoutViewModel.getAllWorkouts()
                 }
                 
             }
+            
+            
         }
         .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color("PrimaryColorBackground"))
-        .onAppear() {
-            guard let workoutRef = authenticationViewModel.user?.workout else {
-                return
-            }
-            workoutModel.getAllWorkouts(workoutReference: workoutRef)
-        }
     }
 }
 
 struct MyWorkoutsView_Previews: PreviewProvider {
     static var previews: some View {
-        TodayWorkoutView().preferredColorScheme(.dark).previewInterfaceOrientation(.portraitUpsideDown)
-        TodayWorkoutView().preferredColorScheme(.light)
+        MyWorkoutsView(workoutViewModel: WorkoutViewModel()).preferredColorScheme(.dark)
+            .environmentObject(AuthenticationViewModel())
+        MyWorkoutsView(workoutViewModel: WorkoutViewModel()).preferredColorScheme(.light)
+            .environmentObject(AuthenticationViewModel())
+
+        
     }
 }
