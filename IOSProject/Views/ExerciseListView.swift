@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ExerciseListView: View {
+    @ObservedObject var workoutViewModel: WorkoutViewModel
+    @State var exercises: [Exercise]
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    @State var exercises: [Exercise]
+    
     @State var finish: Bool = false
     @State var currentExercise = 0
     var body: some View {
@@ -42,7 +44,7 @@ struct ExerciseListView: View {
                 
                 VStack {
                     if(!finish) {
-                        PrimaryNavigationLink(destination: ExerciseView(exercise: $exercises, finish: $finish, currentExercise: $currentExercise), label: "Start Workout", fullWidth: true)
+                        PrimaryNavigationLink(destination: ExerciseView(exercise: $exercises, finish: $finish, currentExercise: $currentExercise, workoutViewModel: workoutViewModel), label: "Start Workout", fullWidth: true)
                     }
                     
                     
@@ -59,8 +61,8 @@ struct ExerciseListView: View {
     }
 }
 
-struct ExerciseListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExerciseListView(exercises: [Exercise(id: "3", name: "Chest press", imageUrl: "https://i.blogs.es/b86c79/1366_2000-1-/840_560.jpeg", videoUrl: "", reps: 12, sets: 4, currentSet: 0, dayNumber: 0), Exercise(id: "2", name: "Military press", imageUrl:"https://i.blogs.es/b86c79/1366_2000-1-/840_560.jpeg" , videoUrl: "", reps: 10, sets: 4, currentSet: 0, dayNumber: 1)]).preferredColorScheme(.dark)
-    }
-}
+//struct ExerciseListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ExerciseListView(exericses: [Exercise(id: "3", name: "Chest press", imageUrl: "https://i.blogs.es/b86c79/1366_2000-1-/840_560.jpeg", videoUrl: "", reps: 12, sets: 4, currentSet: 0, dayNumber: 0), Exercise(id: "2", name: "Military press", imageUrl:"https://i.blogs.es/b86c79/1366_2000-1-/840_560.jpeg" , videoUrl: "", reps: 10, sets: 4, currentSet: 0, dayNumber: 1)], authenticationViewModel: WorkoutViewModel(), workoutViewModel: WorkoutViewModel()).preferredColorScheme(.dark)
+//    }
+//}

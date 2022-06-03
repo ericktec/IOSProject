@@ -40,6 +40,7 @@
 		898B85EA2831609900CC9FC0 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 898B85E92831609900CC9FC0 /* FirebaseFirestore */; };
 		898B85EC2831609900CC9FC0 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 898B85EB2831609900CC9FC0 /* FirebaseFirestoreSwift */; };
 		898B85EE2831609900CC9FC0 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 898B85ED2831609900CC9FC0 /* FirebaseStorage */; };
+		9BB429AA2847ED4800BCA917 /* MyWorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB429A92847ED4800BCA917 /* MyWorkoutsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		898ACA52281F1B33006FB7AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		898ACA55281F1B33006FB7AC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		898B85DE28315F6700CC9FC0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9BB429A92847ED4800BCA917 /* MyWorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorkoutsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				89170AF8284459D800D7AB85 /* ExerciseView.swift */,
 				89170AFC2844631000D7AB85 /* VideoView.swift */,
 				8938B0AC283C403D00554712 /* ImageLoader.swift */,
+				9BB429A92847ED4800BCA917 /* MyWorkoutsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				89170AF9284459D800D7AB85 /* ExerciseView.swift in Sources */,
 				8940422628330621004E3FD0 /* RadioButtons.swift in Sources */,
 				892E91B7283202F900CE8B91 /* SecondaryNavigationLink.swift in Sources */,
+				9BB429AA2847ED4800BCA917 /* MyWorkoutsView.swift in Sources */,
 				892E91AC2831F18600CE8B91 /* AuthenticationRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -501,7 +505,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
-				kind = upToNextMajorVersion;
+				kind = upToNextMinorVersion;
 				minimumVersion = 9.0.0;
 			};
 		};

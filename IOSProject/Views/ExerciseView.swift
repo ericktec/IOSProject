@@ -15,6 +15,7 @@ struct ExerciseView: View {
     @Binding var exercise: [Exercise]
     @Binding var finish: Bool
     @Binding var currentExercise: Int
+    @ObservedObject var workoutViewModel: WorkoutViewModel
     
     var body: some View {
         if(!isBreak) {
@@ -82,8 +83,13 @@ struct ExerciseView: View {
                 exercise[currentExercise].currentSet += 1
                 if(exercise[currentExercise].currentSet >= exercise[currentExercise].sets) {
                     if(currentExercise + 1 >= exercise.count) {
-                        self.mode.wrappedValue.dismiss()
                         finish = true
+                        let newDay = (authenticationViewModel.user!.currentDay+1) % workoutViewModel.activeWorkout!.days
+                        authenticationViewModel.user!.currentDay = newDay
+                        workoutViewModel.updateCurrentDay(userReference: authenticationViewModel.user!.id, day: newDay)
+                        
+                        self.mode.wrappedValue.dismiss()
+                        
                     } else {
                         currentExercise+=1
                     }
