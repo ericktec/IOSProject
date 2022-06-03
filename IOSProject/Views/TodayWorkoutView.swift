@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct TodayWorkoutView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     @ObservedObject var workout: WorkoutViewModel = WorkoutViewModel()
+    
     let layout = [
         GridItem(.adaptive(minimum: UIScreen.main.bounds.width / 4))
     ]
@@ -37,7 +39,7 @@ struct TodayWorkoutView: View {
                     .cornerRadius(10)
                     VStack {
                         PrimaryNavigationLink(destination: ExerciseListView(exercises: workout.activeWorkout!.exercises), label: "Start now", fullWidth: true)
-                        SecondaryNavigationLink(destination: EmptyView(), label: "See more workouts", fullWidth: true)
+                        SecondaryNavigationLink(destination: MyWorkoutsView(), label: "See more workouts", fullWidth: true)
                     }
                 }
                 else {
@@ -45,20 +47,21 @@ struct TodayWorkoutView: View {
                     Image("NoWorkoutImage")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                    SecondaryNavigationLink(destination: EmptyView(), label: "See more workouts", fullWidth: true)
+                    SecondaryNavigationLink(destination: MyWorkoutsView(), label: "See more workouts", fullWidth: true)
                 }
-                
             }
         }
         .padding()
         .background(Color("PrimaryColorBackground"))
         .onAppear() {
+            Auth.auth().currentUser?.reload()
             guard let workoutRef = authenticationViewModel.user?.workout else {
                 return
             }
             workout.getCurrentWorkout(workoutReference: workoutRef)
         }
     }
+    
 }
 
 struct TodayWorkoutView_Previews: PreviewProvider {

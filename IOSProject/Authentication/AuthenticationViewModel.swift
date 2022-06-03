@@ -43,7 +43,6 @@ final class AuthenticationViewModel: ObservableObject {
                 guard let self = self else { return }
                 switch result {
                 case .success(let newUser):
-                    print(newUser)
                     self.user = newUser
                 case .failure(let error):
                     self.messageError = error.localizedDescription

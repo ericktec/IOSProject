@@ -10,7 +10,7 @@ import FirebaseFirestore
 import SwiftUI
 
 class WorkoutViewModel: ObservableObject {
-    private var db = Firestore.firestore()
+    var db = Firestore.firestore()
     private var exericses = [Exercise]()
     @Published var activeWorkout: Workout? = nil
     @Published var allWorkouts = [Workout]()
@@ -20,8 +20,8 @@ class WorkoutViewModel: ObservableObject {
         var name = ""
         var objective = ""
         var type = ""
-        
         var id = ""
+        
         workoutReference.getDocument { (document, error) in
             guard let document = document, document.exists else{
                 return
@@ -53,7 +53,6 @@ class WorkoutViewModel: ObservableObject {
                     return Exercise(id: id, name: name, imageUrl: imageUrl, videoUrl: videoUrl, reps: reps, sets: sets, currentSet: 0, dayNumber: dayNumber)
                 }
                 self.activeWorkout = Workout(id: id, name: name, objective: objective, type: type, days: days, exercises: self.exericses)
-                print(self.activeWorkout ?? "there is no active workout")
             }
         }
     }
@@ -62,7 +61,7 @@ class WorkoutViewModel: ObservableObject {
         
         self.db.collection("workouts").getDocuments() { (querySnapshot, err) in
             if let err = err {
-                print("Error getting docuemnts")
+                print("Error getting documents")
             }
             guard let documents = querySnapshot?.documents else {
                 return
@@ -80,6 +79,14 @@ class WorkoutViewModel: ObservableObject {
             }
         }
     }
-    
+
+    func updateUserActiveWorkout(userReference: String, workoutReference: String) {
+        
+        var workoutDocReference = self.db.collection("workouts").document(workoutReference)
+        
+        self.db.collection("users").document(userReference).setData(["workout": workoutDocReference], merge: true)
+        
+        getCurrentWorkout(workoutReference: workoutDocReference)
+    }
     
 }

@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct MyWorkoutsView: View {
     @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-    @ObservedObject var workout: WorkoutViewModel = WorkoutViewModel()
+    @ObservedObject var workoutModel: WorkoutViewModel = WorkoutViewModel()
     
     let layout = [
         GridItem(.adaptive(minimum: UIScreen.main.bounds.width / 4))
@@ -17,19 +18,25 @@ struct MyWorkoutsView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 30) {
-                Text("Hello \(authenticationViewModel.user!.firstName)")
                 Text("My Workouts")
                     .bold()
                     .font(.title)
                         
-                if workout.allWorkouts.count > 0 {
-                    ForEach(workout.allWorkouts) {workout in
+                if workoutModel.allWorkouts.count > 0 {
+                    ForEach(workoutModel.allWorkouts) {workout in
                         VStack() {
                             Text(workout.name).bold()
                             Text("Type \(workout.type)")
                             Text("Days \(workout.days)")
                             Text("Objective")
                             Text(workout.objective)
+                            Button(
+                                action: {
+                                    authenticationViewModel.user?.workout = workoutModel.db.collection("workouts").document(workout.id)
+                                    workoutModel.updateUserActiveWorkout(userReference: authenticationViewModel.user!.id, workoutReference: workout.id)
+                                    //repull user data
+                                }
+                            ) { Text("Activate") }
                             // Button con onClick workout.activeWorkout = workout
                         }
                         .frame(maxWidth: .infinity)
@@ -43,7 +50,6 @@ struct MyWorkoutsView: View {
                     Image("NoWorkoutImage")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                    SecondaryNavigationLink(destination: EmptyView(), label: "See more workouts", fullWidth: true)
                 }
                 
             }
@@ -54,7 +60,7 @@ struct MyWorkoutsView: View {
             guard let workoutRef = authenticationViewModel.user?.workout else {
                 return
             }
-            workout.getCurrentWorkout(workoutReference: workoutRef)
+            workoutModel.getAllWorkouts(workoutReference: workoutRef)
         }
     }
 }
